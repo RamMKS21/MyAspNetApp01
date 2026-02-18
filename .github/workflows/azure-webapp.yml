@@ -3,7 +3,7 @@ name: Build and Deploy ASP.NET Core App to Azure
 on:
   push:
     branches:
-      - master   # <-- updated to match your repo's default branch
+      - master   # matches your repo's default branch
 
 jobs:
   build-and-deploy:
@@ -19,13 +19,13 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore Dependencies
-      run: dotnet restore
+      run: dotnet restore MyAspNetApp01/MyAspNetApp01.csproj
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build MyAspNetApp01/MyAspNetApp01.csproj --configuration Release --no-restore
 
     - name: Publish
-      run: dotnet publish -c Release -o ./publish
+      run: dotnet publish MyAspNetApp01/MyAspNetApp01.csproj -c Release -o ./publish
 
     - name: Deploy to Azure WebApp
       uses: azure/webapps-deploy@v2
